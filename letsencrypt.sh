@@ -37,14 +37,14 @@ install_cert() {
 certonly() {
 	domain=$1
 	email=$2
-	certbot-auto certonly -q -n -d "${domain}" --standalone "--http-01-address=127.0.0.1:${CERTBOT_PORT}" --agree-tos -m "${email}"
+	certbot-auto certonly -q -n -d "${domain}" --standalone --http-01-address=127.0.0.1 "--http-01-port:${CERTBOT_PORT}" --agree-tos -m "${email}"
 	install_cert "${domain}"
 }
 
 renew() {
 	domain=$1
 	email=$2
-	certbot-auto renew -q "--http-01-address=127.0.0.1:${CERTBOT_PORT}"
+	certbot-auto renew -q --standalone --http-01-address=127.0.0.1 "--http-01-port=${CERTBOT_PORT}"
 	install_cert "${domain}"
 }
 
